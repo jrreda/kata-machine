@@ -1,19 +1,23 @@
 export default function two_crystal_balls(breaks: boolean[]): number {
-    const jumpAmount = Math.floor(Math.sqrt(breaks.length));
+    const jumpSize = Math.floor(Math.sqrt(breaks.length));
 
     // jump ahead by √n steps
-    let i = jumpAmount;
-    for (; i < breaks.length; i += jumpAmount) {
-        if (breaks[i]) {
+    let floor = jumpSize;
+    for (; floor < breaks.length; floor += jumpSize) {
+        if (breaks[floor]) {
             break;
         }
     }
 
     // scan linearly across the last jump
-    i -= jumpAmount;
-    for (let j = 0; j <= jumpAmount && i < breaks.length; ++j, ++i) {
-        if (breaks[i]) {
-            return i;
+    floor -= jumpSize;
+    for (
+        let step = 0;
+        step <= jumpSize && floor < breaks.length;
+        ++step, ++floor
+    ) {
+        if (breaks[floor]) {
+            return floor;
         }
     }
 
